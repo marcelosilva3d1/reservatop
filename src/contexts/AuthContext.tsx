@@ -2,6 +2,10 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useNavigate } from 'react-router-dom'
 
+console.log('Iniciando AuthContext')
+console.log('VITE_NEXT_PUBLIC_SUPABASE_URL:', import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL)
+console.log('VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY:', import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY)
+
 const supabase = createClient(
   import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL,
   import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY
