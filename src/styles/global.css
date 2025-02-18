@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1F3A52;
+  --accent: #3BB273;
+}
+
+/* Aplica as variáveis CSS aos elementos */
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.border-primary {
+  border-color: var(--primary) !important;
+}
+
+.bg-accent {
+  background-color: var(--accent) !important;
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.border-accent {
+  border-color: var(--accent) !important;
+}
+
+/* Gradientes */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--primary), color-mix(in srgb, var(--primary) 80%, transparent)) !important;
+}
+
+/* Hover states */
+.hover\:bg-primary:hover {
+  background-color: var(--primary) !important;
+}
+
+.hover\:text-primary:hover {
+  color: var(--primary) !important;
+}
+
+.hover\:border-primary:hover {
+  border-color: var(--primary) !important;
+}
+
+.hover\:bg-accent:hover {
+  background-color: var(--accent) !important;
+}
+
+.hover\:text-accent:hover {
+  color: var(--accent) !important;
+}
+
+.hover\:border-accent:hover {
+  border-color: var(--accent) !important;
+}
+
+/* Ring colors */
+.ring-primary {
+  --tw-ring-color: var(--primary) !important;
+}
+
+.ring-accent {
+  --tw-ring-color: var(--accent) !important;
+}
