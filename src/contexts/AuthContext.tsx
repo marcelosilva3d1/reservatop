@@ -2,14 +2,32 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useNavigate } from 'react-router-dom'
 
-console.log('Iniciando AuthContext')
-console.log('VITE_NEXT_PUBLIC_SUPABASE_URL:', import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL)
-console.log('VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY:', import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY)
+// Log environment variables on load
+console.log('=== AuthContext Environment Check ===')
+const supabaseUrl = import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-const supabase = createClient(
-  import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL,
-  import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
+console.log('SUPABASE_URL:', supabaseUrl ? '✅ Defined' : '❌ Missing')
+console.log('SUPABASE_KEY:', supabaseKey ? '✅ Defined' : '❌ Missing')
+
+// Create client with error handling
+let supabase
+try {
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error('Missing Supabase environment variables')
+  }
+  supabase = createClient(supabaseUrl, supabaseKey)
+  console.log('✅ Supabase client created successfully')
+} catch (error) {
+  console.error('❌ Error creating Supabase client:', error)
+  // Create a dummy client to prevent app from crashing
+  supabase = {
+    auth: {
+      getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+    }
+  }
+}
 
 interface User {
   id: string
@@ -36,8 +54,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate()
 
   useEffect(() => {
+    console.log('🔄 AuthProvider useEffect running')
+    
     // Verificar se há uma sessão ativa
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      console.log('Session check:', session ? '✅ Session found' : '❌ No session')
+      if (error) {
+        console.error('Session error:', error)
+        return
+      }
+      
       if (session) {
         // Buscar perfil do usuário
         supabase
@@ -47,14 +73,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           .single()
           .then(({ data: profile, error }) => {
             if (error) {
-              console.error('Erro ao buscar perfil:', error)
+              console.error('Profile error:', error)
               return
             }
 
             if (profile) {
+              console.log('✅ Profile loaded:', profile.role)
               setUser({
                 id: session.user.id,
-                name: profile.name,
+                name: profile.name || '',
                 email: session.user.email!,
                 role: profile.role
               })
@@ -67,6 +94,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Escutar mudanças na autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state change:', event)
+      
       if (event === 'SIGNED_IN' && session) {
         // Buscar perfil do usuário
         const { data: profile, error } = await supabase
@@ -76,14 +105,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           .single()
 
         if (error) {
-          console.error('Erro ao buscar perfil:', error)
+          console.error('Profile error:', error)
           return
         }
 
         if (profile) {
+          console.log('✅ Profile updated:', profile.role)
           setUser({
             id: session.user.id,
-            name: profile.name,
+            name: profile.name || '',
             email: session.user.email!,
             role: profile.role
           })
@@ -91,6 +121,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setIsAuthenticated(true)
         }
       } else if (event === 'SIGNED_OUT') {
+        console.log('❌ User signed out')
         setUser(null)
         setRole(null)
         setIsAuthenticated(false)
@@ -128,7 +159,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setUser({
         id: data.user.id,
-        name: profile.name,
+        name: profile.name || '',
         email: data.user.email!,
         role: profile.role
       })
