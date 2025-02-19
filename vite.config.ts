@@ -18,6 +18,20 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
+  define: {
+    'import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL': 
+      JSON.stringify(process.env.VITE_NEXT_PUBLIC_SUPABASE_URL),
+    'import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY':
+      JSON.stringify(process.env.VITE_NEXT_PUBLIC_SUPABASE_ANON_KEY),
+    'import.meta.env.VITE_API_URL':
+      JSON.stringify(process.env.VITE_API_URL),
+    'import.meta.env.VITE_WHATSAPP_API_URL':
+      JSON.stringify(process.env.VITE_WHATSAPP_API_URL),
+    'import.meta.env.VITE_WHATSAPP_INSTANCE':
+      JSON.stringify(process.env.VITE_WHATSAPP_INSTANCE),
+    'import.meta.env.VITE_WHATSAPP_API_KEY':
+      JSON.stringify(process.env.VITE_WHATSAPP_API_KEY)
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

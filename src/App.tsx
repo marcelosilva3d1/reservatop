@@ -16,6 +16,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import EnvTest from './components/EnvTest';
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
             </div>
           </BrowserRouter>
         </ThemeProvider>
+        <EnvTest />
         <Toaster />
         <Sonner />
       </AuthProvider>
