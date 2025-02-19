@@ -1,0 +1,325 @@
+{
+  "professionals": [
+    {
+      "name": "prof1",
+      "email": "prof1@reservatop.com",
+      "password": "123456",
+      "phone": "(65) 16516-5465",
+      "profileUrl": "prof1",
+      "profession": "Barbeiro",
+      "bio": "Cabeleireiro(a) apaixonado(a) por transformar a autoestima das pessoas através de cortes personalizados. Formado(a) em técnicas avançadas de coloração.",
+      "avatar": null,
+      "coverImage": null,
+      "status": "approved",
+      "services": [
+        {
+          "name": "Hidratação",
+          "description": "dfsdf",
+          "price": 50,
+          "duration": 30,
+          "category": "Cabelo"
+        },
+        {
+          "name": "Barba Tradicional",
+          "description": "sdfsdf",
+          "price": 30,
+          "duration": 30,
+          "category": "Barba"
+        }
+      ],
+      "workingHours": [
+        {
+          "dayOfWeek": 1,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 2,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 3,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 6,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 0,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": false
+        }
+      ],
+      "createdAt": "2025-02-14T23:15:45.662Z",
+      "id": "1"
+    },
+    {
+      "name": "Profissinal 2",
+      "email": "prof2@reservatop.com",
+      "password": "123456",
+      "phone": "(22) 22222-2222",
+      "profileUrl": "prof2",
+      "profession": "Cabeleireiro",
+      "bio": "Expert em barbearia moderna, unindo técnicas tradicionais com as últimas tendências. Especializado(a) em degradês e acabamentos impecáveis.",
+      "avatar": null,
+      "coverImage": null,
+      "status": "approved",
+      "services": [
+        {
+          "name": "Tratamento Anticaspa",
+          "description": "fsdf",
+          "price": 20,
+          "duration": 30,
+          "category": "Tratamentos"
+        },
+        {
+          "name": "Barba Completa",
+          "description": "sdgdfh",
+          "price": 50,
+          "duration": 30,
+          "category": "Barba"
+        }
+      ],
+      "workingHours": [
+        {
+          "dayOfWeek": 1,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 2,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 3,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 6,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 0,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": false
+        }
+      ],
+      "createdAt": "2025-02-15T13:56:56.600Z",
+      "id": "2"
+    },
+    {
+      "name": "prof3",
+      "email": "prof3@reservatop.com",
+      "password": "123456",
+      "phone": "(33) 33333-3333",
+      "profileUrl": "prof3",
+      "profession": "Manicure",
+      "bio": "Profissional com mais de 10 anos de experiência em cortes masculinos e femininos. Especializado em técnicas modernas e tendências atuais.",
+      "avatar": null,
+      "coverImage": null,
+      "status": "approved",
+      "services": [
+        {
+          "name": "Corte Social",
+          "description": "testando ",
+          "price": 40,
+          "duration": 30,
+          "category": "cabelo"
+        },
+        {
+          "name": "Manicure",
+          "description": "testando 2",
+          "price": 60,
+          "duration": 30,
+          "category": "manicure-pedicure"
+        }
+      ],
+      "workingHours": [
+        {
+          "dayOfWeek": 1,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 2,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 3,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 6,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 0,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": false
+        }
+      ],
+      "createdAt": "2025-02-15T14:52:42.459Z",
+      "id": "3"
+    },
+    {
+      "name": "prof4",
+      "email": "prof4@reservatop.com",
+      "password": "123456",
+      "phone": "(44) 44444-4444",
+      "profileUrl": "prof4",
+      "profession": "Cabeleireiro",
+      "bio": "Expert em barbearia moderna, unindo técnicas tradicionais com as últimas tendências. Especializado(a) em degradês e acabamentos impecáveis.",
+      "avatar": null,
+      "coverImage": null,
+      "status": "approved",
+      "services": [
+        {
+          "name": "Corte Holandês",
+          "description": "dfgdfgdfg",
+          "price": 40,
+          "duration": 25,
+          "category": "cabelo"
+        },
+        {
+          "name": "Barba completa",
+          "description": "dfsdfsdf",
+          "price": 25,
+          "duration": 20,
+          "category": "barba"
+        }
+      ],
+      "workingHours": [
+        {
+          "dayOfWeek": 1,
+          "start": "08:00",
+          "end": "18:30",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 2,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 3,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": true
+        },
+        {
+          "dayOfWeek": 6,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": false
+        },
+        {
+          "dayOfWeek": 0,
+          "start": "09:00",
+          "end": "18:00",
+          "isAvailable": false
+        }
+      ],
+      "createdAt": "2025-02-15T15:13:49.427Z",
+      "id": "4"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin Principal",
+      "email": "admin@reservatop.com",
+      "role": "admin",
+      "status": "active",
+      "registrationDate": "2024-01-01T00:00:00.000Z",
+      "lastLogin": "2024-02-17T00:00:00.000Z",
+      "appointmentsCount": 0
+    },
+    {
+      "id": "2",
+      "name": "Cliente Exemplo",
+      "email": "cliente@email.com",
+      "role": "user",
+      "status": "active",
+      "registrationDate": "2024-02-10T00:00:00.000Z",
+      "lastLogin": "2024-02-17T00:00:00.000Z",
+      "appointmentsCount": 3
+    }
+  ],
+  "categories": [],
+  "appointments": [],
+  "clients": []
+}

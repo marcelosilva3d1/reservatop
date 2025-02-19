@@ -1,4 +1,4 @@
-import { supabase, uploadImage, getImageUrl } from "@/lib/supabase";
+import api from "@/lib/api";
 
 export interface TimeSlot {
   start: string;
@@ -45,171 +45,137 @@ export interface Professional {
 }
 
 const professionalService = {
+  // Criar novo profissional
   create: async (data: any): Promise<Professional> => {
-    const { avatar, coverImage, ...professionalData } = data;
-    
-    // Criar usuário no auth
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    // Preparar os dados do profissional
+    const professionalData = {
+      name: data.name,
       email: data.email,
       password: data.password,
-      options: {
-        data: {
-          role: 'professional'
-        }
-      }
-    });
-    if (authError) throw authError;
+      phone: data.phone,
+      profileUrl: data.profileUrl,
+      profession: data.profession,
+      bio: data.bio,
+      avatar: null, // Por enquanto, sem suporte a upload de imagens
+      coverImage: null,
+      status: 'pending',
+      address: data.address,
+      services: data.services,
+      workingHours: data.workingHours.map(day => ({
+        ...day,
+        timeSlots: day.isAvailable ? [
+          { start: "09:00", end: "12:00" },
+          { start: "14:00", end: "18:00" }
+        ] : []
+      })),
+      createdAt: new Date().toISOString()
+    };
 
-    // Upload das imagens
-    let avatarUrl = null;
-    let coverImageUrl = null;
-
-    if (avatar) {
-      const path = `professionals/${authData.user.id}/avatar`;
-      await uploadImage('images', path, avatar);
-      avatarUrl = getImageUrl('images', path);
-    }
-
-    if (coverImage) {
-      const path = `professionals/${authData.user.id}/cover`;
-      await uploadImage('images', path, coverImage);
-      coverImageUrl = getImageUrl('images', path);
-    }
-
-    // Criar perfil do profissional
-    const { data: profile, error: profileError } = await supabase
-      .from('professionals')
-      .insert({
-        ...professionalData,
-        id: authData.user.id,
-        avatar: avatarUrl,
-        coverImage: coverImageUrl,
-        status: 'pending'
-      })
-      .select()
-      .single();
-
-    if (profileError) throw profileError;
-    return profile;
+    const response = await api.post<Professional>("/professionals", professionalData);
+    return response.data;
   },
 
+  // Listar todos os profissionais
   list: async (): Promise<Professional[]> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .select('*')
-      .order('name');
-    
-    if (error) throw error;
-    return data;
+    const response = await api.get<Professional[]>("/professionals");
+    return response.data;
   },
 
+  // Buscar profissional por ID
   getById: async (id: string): Promise<Professional> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .select('*')
-      .eq('id', id)
-      .single();
-    
-    if (error) throw error;
-    return data;
+    const response = await api.get<Professional>(`/professionals/${id}`);
+    return response.data;
   },
 
   update: async (id: string, data: Partial<Professional>): Promise<Professional> => {
-    const { avatar, coverImage, ...updateData } = data;
-
-    if (avatar) {
-      const path = `professionals/${id}/avatar`;
-      await uploadImage('images', path, avatar as File);
-      updateData.avatar = getImageUrl('images', path);
+    try {
+      const response = await api.patch<Professional>(`/professionals/${id}`, data);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao atualizar profissional:', error);
+      throw error;
     }
-
-    if (coverImage) {
-      const path = `professionals/${id}/cover`;
-      await uploadImage('images', path, coverImage as File);
-      updateData.coverImage = getImageUrl('images', path);
-    }
-
-    const { data: updated, error } = await supabase
-      .from('professionals')
-      .update(updateData)
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) throw error;
-    return updated;
   },
 
+  // Atualizar serviços do profissional
   updateServices: async (id: string, services: Professional['services']): Promise<Professional> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .update({ services })
-      .eq('id', id)
-      .select()
-      .single();
+    // Primeiro buscar os dados existentes
+    const current = await professionalService.getById(id);
     
-    if (error) throw error;
-    return data;
+    // Atualizar apenas os serviços mantendo todos os outros dados
+    const updatedData = {
+      ...current,
+      services
+    };
+
+    const response = await api.put<Professional>(`/professionals/${id}`, updatedData);
+    return response.data;
   },
 
+  // Aprovar profissional
   approve: async (id: string): Promise<Professional> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .update({ status: 'approved' })
-      .eq('id', id)
-      .select()
-      .single();
+    // Primeiro buscar os dados existentes
+    const current = await professionalService.getById(id);
     
-    if (error) throw error;
-    return data;
+    // Atualizar apenas o status mantendo os outros dados
+    const updatedData = {
+      ...current,
+      status: "approved"
+    };
+
+    const response = await api.put<Professional>(`/professionals/${id}`, updatedData);
+    return response.data;
   },
 
+  // Rejeitar profissional
   reject: async (id: string, reason: string): Promise<Professional> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .update({ 
-        status: 'rejected',
-        rejectionReason: reason 
-      })
-      .eq('id', id)
-      .select()
-      .single();
+    // Primeiro buscar os dados existentes
+    const current = await professionalService.getById(id);
     
-    if (error) throw error;
-    return data;
+    // Atualizar apenas o status mantendo os outros dados
+    const updatedData = {
+      ...current,
+      status: "rejected",
+      rejectionReason: reason
+    };
+
+    const response = await api.put<Professional>(`/professionals/${id}`, updatedData);
+    return response.data;
   },
 
+  // Bloquear profissional
   block: async (id: string): Promise<Professional> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .update({ status: 'blocked' })
-      .eq('id', id)
-      .select()
-      .single();
+    // Primeiro buscar os dados existentes
+    const current = await professionalService.getById(id);
     
-    if (error) throw error;
-    return data;
+    // Atualizar apenas o status mantendo os outros dados
+    const updatedData = {
+      ...current,
+      status: "blocked"
+    };
+
+    const response = await api.put<Professional>(`/professionals/${id}`, updatedData);
+    return response.data;
   },
 
+  // Desbloquear profissional
   unblock: async (id: string): Promise<Professional> => {
-    const { data, error } = await supabase
-      .from('professionals')
-      .update({ status: 'approved' })
-      .eq('id', id)
-      .select()
-      .single();
+    // Primeiro buscar os dados existentes
+    const current = await professionalService.getById(id);
     
-    if (error) throw error;
-    return data;
+    // Atualizar apenas o status mantendo os outros dados
+    const updatedData = {
+      ...current,
+      status: "approved"
+    };
+
+    const response = await api.put<Professional>(`/professionals/${id}`, updatedData);
+    return response.data;
   },
 
+  // Excluir profissional
   delete: async (id: string): Promise<void> => {
-    const { error } = await supabase
-      .from('professionals')
-      .delete()
-      .eq('id', id);
-    
-    if (error) throw error;
+    await api.delete(`/professionals/${id}`);
   }
 };
 

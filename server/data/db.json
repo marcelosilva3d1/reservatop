@@ -599,6 +599,38 @@
       "status": "confirmed",
       "createdAt": "2025-02-18T19:47:40.487Z",
       "id": "sYZWRK7"
+    },
+    {
+      "professionalId": "1739834083631",
+      "clientId": "YdA1yXx",
+      "serviceId": "1739834083631-Corte degradê",
+      "date": "2025-02-19",
+      "time": "07:30",
+      "price": 40,
+      "serviceName": "Corte degradê",
+      "clientName": "Marcelo S Costa",
+      "clientEmail": "marcelosilva3d1@hotmail.com",
+      "clientPhone": "88993228310",
+      "duration": 30,
+      "status": "confirmed",
+      "createdAt": "2025-02-19T01:41:34.915Z",
+      "id": "Ar1fJk1"
+    },
+    {
+      "professionalId": "1739834083631",
+      "clientId": "YdA1yXx",
+      "serviceId": "1739834083631-Corte degradê",
+      "date": "2025-02-20",
+      "time": "10:30",
+      "price": 40,
+      "serviceName": "Corte degradê",
+      "clientName": "Marcelo Silva",
+      "clientEmail": "marcelosilva3d1@hotmail.com",
+      "clientPhone": "88993228310",
+      "duration": 30,
+      "status": "confirmed",
+      "createdAt": "2025-02-19T16:07:30.547Z",
+      "id": "tjqdNFJ"
     }
   ],
   "clients": [
@@ -628,10 +660,10 @@
         "1739789794487",
         "1739834083631"
       ],
-      "totalAppointments": 21,
+      "totalAppointments": 23,
       "createdAt": "2025-02-16T19:30:15.589Z",
       "id": "YdA1yXx",
-      "lastAppointment": "2025-02-21",
+      "lastAppointment": "2025-02-20",
       "blockedBy": [
         "1"
       ],
